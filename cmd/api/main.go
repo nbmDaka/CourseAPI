@@ -1,15 +1,18 @@
-package api
+package main
 
 import (
 	"context"
 	"database/sql"
 	"flag"
 	"fmt"
+	_ "github.com/lib/pq"
 	"log"
 	"net/http"
 	"os"
 	"time"
 )
+
+const version = "1.0.0"
 
 type config struct {
 	port int
@@ -31,9 +34,9 @@ func main() {
 
 	var cfg config
 
-	flag.IntVar(&cfg.port, "port", 4000, "API server port")
+	flag.IntVar(&cfg.port, "port", 4040, "API server port")
 	flag.StringVar(&cfg.env, "env", "development", "Environment (development|staging|production)")
-	flag.StringVar(&cfg.db.dsn, "db-dsn", "postgres://postgres:123456@localhost/greenlight?sslmode=disable", "PostgreSQL DSN")
+	flag.StringVar(&cfg.db.dsn, "db-dsn", "postgres://postgres:123456@localhost/n.beketovDB?sslmode=disable", "PostgreSQL DSN")
 
 	flag.IntVar(&cfg.db.maxOpenConns, "db-max-open-conns", 25, "PostgreSQL max open connections")
 	flag.IntVar(&cfg.db.maxIdleConns, "db-max-idle-conns", 25, "PostgreSQL max idle connections")
